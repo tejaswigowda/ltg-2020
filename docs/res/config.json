@@ -1,0 +1,25 @@
+{
+	"version": "1.0",
+	"name": "anappfor.me",
+	"embedded": false,
+	"embedType": "",
+	"resURL": "https://s3-us-west-2.amazonaws.com/anappfor.me/",
+	"reshttpURL": "http://s3-us-west-2.amazonaws.com/anappfor.me/",
+	"location": "",
+	"canvases": [
+                    ["moco2019", "MOCO 2019", "Welcome"],
+                    ["proceedings", "Proceedings", "Proceedings"],
+                    ["submission", "Submission", "Submission Instructions"],
+                    ["programme", "Programme", "Programme"],
+                    ["keynotes", "Keynotes", "Keynotes"],
+                    ["performances", "Performances", "Performances"],
+                    ["registration", "Registration", "Registration"],
+                    ["venue", "Venue", "Venue"],
+                    ["accomadation", "Accomadation", "Accomadation"],
+                    ["committee", "Committee", "Committee"],
+                    ["mocoComm", "Movement and Computing Community", "The Community"],
+                    ["about", "About", "About"],
+                    ["contact", "Contact Us", "Contact Us"]
+                  ],
+	"haslogin": false
+}

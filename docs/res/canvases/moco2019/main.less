@@ -1,0 +1,36 @@
+@import "../../css/globals.less";
+
+.sidenav.menuMarkup{
+  /*background:white;*/
+  .bold.active {
+    /*background: none;*/
+    a {
+      color: @brandColor;
+    }
+  }
+}
+
+.canvas .content{
+  width: 90%;
+  margin-left: 5%;
+}
+
+.iconBox .icon{
+    filter: invert(100%) drop-shadow(0 0 1px);
+}
+
+.sidenav-trigger.btn-floating{
+  bottom: 5px;
+  top: auto;
+  transition: 1s;
+}
+
+.drag-target{
+  min-width: 20px;
+}
+
+.sidenav li.bold > a{
+    line-height: 20px;
+    padding: 15px 32px;
+    height: auto;
+}
