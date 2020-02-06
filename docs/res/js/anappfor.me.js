@@ -15,7 +15,7 @@ function buildApp()
 }
 
 
-function logoutNow(){loadFile("./logout", function(d){window.location.reload()})}
+function logoutNow(){loadFile("./auth/logout", function(d){window.location.reload()})}
 
 var doLogout = function()
 {
@@ -60,16 +60,17 @@ function doRegister(){
      '<div style="z-index: 1002; display: block; opacity: 1;" class="modal-overlay brandBG"> </div>'+
        '<div class="modal menutextColor brandBG" style="min-height:500px;box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.2);border-radius: 10px; box-shadow: none;overflow:hidden;z-index: 1003; display: block; opacity: 1; max-width: 400px;top: 10%; transform: scaleX(1) scaleY(1);">'+
           '<div class="iconBlock"></div><h4 class="textcenter">REGISTER</h4>'+
-        '<form><div class="row">'+
+    //    '<form action="tryRegister" method="post">'+
+        '<div class="row">'+
               '<div class="input-field col s12">'+
-                '<input onblur="" id="emailR" type="email" class="validate" name="email">'+
+                '<input onblur="" id="emailR" type="email" class="validate" name="emailR">'+
                 '<label for="emailR" class="">Email</label>'+
                 '<span class="helper-text" data-error="" data-success=""></span>'+
               '</div>'+
         '</div>'+
         '<div class="row">'+
               '<div class="input-field col s12">'+
-                '<input id="passwordR" type="password" name="password" class="validate">'+
+                '<input id="passwordR" type="password" name="passwordR" class="validate">'+
                 '<label for="passwordR" class="">Password</label>'+
                 '<span class="helper-text" data-error="" data-success=""></span>'+
               '</div>'+
@@ -77,7 +78,7 @@ function doRegister(){
           '<button onclick="registerNow()" class="btn waves-effect waves-light accentBG" name="action" style="margin:auto;display: block;margin-bottom:30px">Signup'+
               '<i class="material-icons left">create</i>'+
           '</button>'+
-          '</form>'+
+      //    '</form>'+
                 '<a href="javascript:loadGetLoginModal()" style="display: block;color: inherit;" class="btn-flat textcenter">Have Account? Login</a>'+
       '</div>'+
     '</div>'
@@ -88,43 +89,37 @@ function doRegister(){
 
 function loginNow()
 {
-  $.ajax({
-    url:"/tryLogin",
-    method:"POST", //First change type to method here
-    data:{
-      email: document.getElementById("email").value,
-      password: document.getElementById("password").value
-    },
-    success:function(response) {
-     window.location.hash = "fail"
-     window.location.reload();
-   },
-   error:function(){
-     window.location.hash = "fail"
-     window.location.reload();
-   }
- });
+      email= document.getElementById("email").value,
+      password= document.getElementById("password").value
+      var url = "./auth/login?email=" + email + "&password=" + password;
+      loadFile(url, function (data){
+        if(data === "0"){
+           window.location.hash = "fail"
+           window.location.reload();
+        }
+        else{
+           window.location.reload();
+        }
+      })
+
 }
 
 
 function registerNow()
 {
-  $.ajax({
-    url:"/tryRegister",
-    method:"POST", //First change type to method here
-    data:{
-      emailR: document.getElementById("emailR").value,
-      passwordR: document.getElementById("passwordR").value
-    },
-    success:function(response) {
-     window.location.hash = "regf"
-     window.location.reload();
-   },
-   error:function(){
-     window.location.hash = "regf"
-     window.location.reload();
-   }
- });
+
+      email = document.getElementById("emailR").value,
+      password = document.getElementById("passwordR").value
+      var url = "./auth/register?email=" + email + "&password=" + password;
+      loadFile(url, function (data){
+        if(data === "0"){
+           window.location.hash = "regf"
+           window.location.reload();
+        }
+        else{
+           window.location.reload();
+        }
+      });
 }
 
 
@@ -144,13 +139,30 @@ function doLostPwd()
   });
 }
 
+function doCP()
+{
+  var x = userObj;
+  var oldP = document.getElementById("currPwd").value;
+  var newP = document.getElementById("newPwd").value;
+  $("#changePwdWrapper input").val("")
+  loadFile("changepass?id=" + x + "&oldpass=" + oldP + "&newpass=" + newP, function(data){
+    if(data !== "1"){
+      modal.show("Something went wrong", "Check the password you entered?", "", "", "", "Try again");
+    }
+    else{
+      modal.show("Success!", "Your password is reset.", null, null, "", "OK");
+    }
+  });
+}
+
 function loadGetLoginModal(){
   modal.hide();
   $("body").append(
      '<div style="    box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.2);z-index: 1002; display: block; opacity: 1;" class="modal-overlay brandBG"> </div>'+
        '<div class="modal menutextColor brandBG" style="min-height: 555px;border-radius: 10px; box-shadow: none;overflow:hidden;z-index: 1003; display: block; opacity: 1; max-width: 400px;top: 10%; transform: scaleX(1) scaleY(1);">'+
           '<div class="iconBlock"></div><h4 class="textcenter">LOGIN</h4>'+
-        '<form><div class="row">'+
+     //    '<form action="tryLogin" method="post">'+
+        '<div class="row">'+
               '<div class="input-field col s12">'+
                 '<input onblur="storeEmail()" id="email" type="email" class="validate" name="email">'+
                 '<label for="email" class="">Email</label>'+
@@ -166,15 +178,15 @@ function loadGetLoginModal(){
          '</div>'+
           '<button onclick="loginNow()" class="btn waves-effect waves-light accentBG" name="action" style="margin:auto;display: block;margin-bottom:30px">Login'+
               '<i class="material-icons right">arrow_forward</i>'+
-          '</button></form>'+
+          '</button>'+
+       //   '</form>'+
                 '<a href="javascript:doRegister()" style="display: block;color: inherit;" class="btn-flat textcenter">No Account? Sign up</a>'+
                 '<a href="javascript:lostPwd()" style="display:block;color: inherit;" class="btn-flat textcenter">Lost Password?</a>'+
       '</div>'+
     '</div>'
   );
   activityIndicator.hide();
-  $(".modal input[type='email']").focus();
-  $(".modal input[type='email']").val(localStorage.getItem("email"));
+  $(".modal input[type='email']").val(localStorage.getItem("email")).focus();
 }
 
 function getInputMethod(){
@@ -376,7 +388,7 @@ var modal = {
 
 var getUniqueID = function()
 {
-  return md5(userObj.local.email + new Date().getTime()).split("").sort(function(a,b){return -.5 + Math.random(0,1)}).toString().replace(/,/g,"")
+  return md5(userObj + new Date().getTime()).split("").sort(function(a,b){return -.5 + Math.random(0,1)}).toString().replace(/,/g,"")
 }
 
 var getLImarkup = function(item,cbSt){
@@ -542,193 +554,4 @@ function sortByKey(array, key) {
 
         return ((x < y) ? -1 : ((x > y) ? 1 : 0));
     });
-}
-
-
-function menuToggled()
-{
-  var flag = document.getElementById("menu-open").checked;
-  if(flag){
-    $("body").addClass("menuVisible");
-  }
-  else{
-    $("body").removeClass("menuVisible");
-  }
-}
-
-var currMenu = "maps"
-
-
-function goHome()
-{
-  if(document.getElementById("theHeader").className === "open"){
-    $(".menuOption").removeClass("selected")
-    $("#theHeader").removeClass("open");
-    $("#canvasWrapper").fadeOut();
-    $(".canvas").fadeOut(0);
-    $("#theHeader").stop().fadeOut(0);
-    $(".menu").fadeIn(100);
-    $("body").addClass("menuVisible");
-  }
-  else{
-    $("#theHeader").addClass("open");
-  }
-}
-
-function initWaypoints()
-{
-  var waypoint1 = new Waypoint({
-    element: document.getElementById('d1wp'),
-    offset: 135,
-    handler: function(direction) {
-      handleWP(1, direction);
-    }
-  });
-  var waypoint2 = new Waypoint({
-    element: document.getElementById('d2wp'),
-    offset: 135,
-    handler: function(direction) {
-      handleWP(2, direction);
-    }
-  });
-  var waypoint3 = new Waypoint({
-    element: document.getElementById('d3wp'),
-    offset: 135,
-    handler: function(direction) {
-      handleWP(3, direction);
-    }
-  });
-}
-
-var wpInit = false; 
-function menuSelected(m)
-{
-  $("#theHeader").removeClass("open");
-  $(".menuOption").removeClass("selected")
-  currMenu = m || currMenu;
-  $("#canvasWrapper").fadeIn();
-  $(".canvas").fadeOut(0);
-  $("#theHeader").stop().fadeIn(50);
-  $(".canvas#" + currMenu).stop().fadeIn(50);
-  $(".menu").fadeOut(100);
-  $("body").removeClass("menuVisible");
-  $(".menuOption."+ currMenu).addClass("selected")
-  $(".headerText").html("");
-
-  if(currMenu === "program"){
-    document.getElementById("theHeader").style.boxShadow = "0px 10px 20px #BDC9DE";
-    if(!wpInit){
-      wpInit = true;
-      initWaypoints();
-    }
-  }
-  else if(currMenu === "speakers"){
-    document.getElementById("theHeader").style.boxShadow = "0px 10px 20px #DBDAA6";
-    goBack();
-  }
-  else if(currMenu === "maps"){
-    document.getElementById("theHeader").style.boxShadow = "0px 5px 10px #8ECD9A";
-    if(dLoad){
-      dLoad = false;
-    }
-    else{
-      document.getElementById("mapFrame").src = "https://www.google.com/maps/d/embed?mid=1SRTEXVScNFFqHSu5KNON8Lq3mBshgp-n";
-    }
-  }
-  else if(currMenu === "contact"){
-    document.getElementById("theHeader").style.boxShadow = "0px 10px 20px rgba(0,0,0,.16)";
-  }
-   $("HTML, BODY").animate({ scrollTop: 0}, 100);
-}
-
-function dayClicked(n)
-{
-  ++n;
-  $('html, body').animate({
-      scrollTop: $("#d" + n + "wp").offset().top -125
-    }, 1000)
-}
-
-function speakerClicked(n)
-{
-  $("#speakerList").fadeOut();
-  $("#speakerPage").fadeIn();
-  $("#speakerPage .page").fadeOut(0);
-  $("#speakerPage #page"+n).fadeIn();
-   $("HTML, BODY").animate({ scrollTop: 0}, 100);
-}
-
-function goBack()
-{
-  $("#speakerList").fadeIn();
-  $("#speakerPage").fadeOut();
-  $("#speakerPage .page").fadeOut(0);
-   $("HTML, BODY").animate({ scrollTop: 0}, 100);
-}
-
-var dLoad = false;
-function goto(n){
-  dLoad = true;
-  switch(n){
-    case "sfb":
-      menuSelected("maps");
-      document.getElementById("mapFrame").src = "https://map.m.asu.edu/?id=120#!m/63016?sbc/";
-      break;
-    case "is":
-      document.getElementById("mapFrame").src = "https://map.m.asu.edu/?id=120#!m/63214?sbc/";
-      menuSelected("maps");
-      break;
-    case "fac":
-      document.getElementById("mapFrame").src = "https://map.m.asu.edu/?id=120#!m/62902?sbc/";
-      menuSelected("maps");
-      break;
-    default:
-      break;
-  }
-  $("#headerTextL").html("");
-  $("#headerTextR").html("");
-}
-
-function gotoA(n){
-   menuSelected("speakers");
-   speakerClicked(n);
-}
-
-
-function handleWP(day, dir){
-  if(currMenu != "program"){
-      $("#headerTextL").html("");
-      $("#headerTextR").html("");
-      return;
-  }
-  if(day == 1){
-    if(dir == "up"){
-      $("#headerTextL").html("");
-      $("#headerTextR").html("");
-    }
-    else{
-      $("#headerTextL").html("Day 1");
-      $("#headerTextR").html("Thu, October 10<sup>th</sup>");
-    }
-  }
-  else if(day == 2){
-    if(dir == "up"){
-      $("#headerTextL").html("Day 1");
-      $("#headerTextR").html("Thu, October 10<sup>th</sup>");
-    }
-    else{
-      $("#headerTextL").html("Day 2");
-      $("#headerTextR").html("Fri, October 11<sup>th</sup>");
-    }
-  }
-  else if(day == 3){
-    if(dir == "up"){
-      $("#headerTextL").html("Day 2");
-      $("#headerTextR").html("Fri, October 11<sup>th</sup>");
-    }
-    else{
-      $("#headerTextL").html("Day 3");
-      $("#headerTextR").html("Sat, October 12<sup>th</sup>");
-    }
-  }
 }

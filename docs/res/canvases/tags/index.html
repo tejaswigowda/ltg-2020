@@ -1,0 +1,32 @@
+<! --
+tags
+-->
+<div class='wrapper' id='listtagWrapper'>
+  <h1> Tags </h1>
+  <div class="row">
+    <div class="input-field col s12">
+        <i class="material-icons prefix">search</i>
+        <input id="tagSearch" class="materialize-input">
+    </div>
+  </div>
+  <ul class='list flatlist' id='tagList'>
+  </ul>
+</div>
+
+<div class='wrapper' id='crudtagWrapper'>
+  <h1 id='newPHeading'> New tag </h1>    
+          <div class='circle thumbnail' id='tagThumb'>
+            <input name='' data-targetname='' type='file' onchange='doFileUpload(event, App.tags.thumbChanged);doImageUpload(event, App.tags.thumbChanged100)' data-height='100' data-width='100'>
+          </div>
+    <div class="input-field col s12">
+          <i class="material-icons prefix">mode_edit</i>
+          <textarea id="tagTitle" data-key='name' onchange="App.tags.updatetag(event)" class="materialize-textarea"></textarea>
+          <label for="tagTitle">tag Title</label>
+   </div>
+    <div class="input-field col s12">
+          <i class="material-icons prefix">format_align_justify</i>
+          <textarea id="tagDesc" data-key='desc' onchange="App.tags.updatetag(event)" class="materialize-textarea"></textarea>
+          <label for="tagDesc">Description</label>
+   </div>
+    <a class="waves-effect waves-light btn red" href='javascript:App.tags.delete()' id='deletetagButton'><i class="material-icons left">delete</i>Delete</a>
+</div>

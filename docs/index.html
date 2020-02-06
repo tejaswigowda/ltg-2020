@@ -2,104 +2,97 @@
 <html>
 <head>
   <base href="./">
-  <meta name="apple-mobile-web-app-capable" content="yes">
   <meta content="width=device-width, initial-scale=1, maximum-width=device-width, maximum-scale=1" name="viewport">
   <script src='res/js/asyncReq.js'></script>
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self' gap://ready file://* *; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval'">
 <script>
- var hash = window.location.hash.replace("#","").split(",");
+  var userObj = {}
+  var hash = window.location.hash.replace("#","").split(",");
  var main = function(){
-  activityIndicator.hide();
-  getInputMethod();
-  $("html").removeClass("canvas");
-  $(".menu").fadeIn(100);
-  document.getElementById("menu-open").checked = false;
-  menuToggled();
-  loadFile("./res/pages/contact.html", function(data){$("#contact").html(data)});
-  loadFile("./res/pages/speakers.html", function(data){$("#speakers").html(data)});
-  swipeDetectorInit();
-  loadProgram();
- }
-
- function loadProgram(){
- // loadFile("./res/pages/program.html",function(data){$("#program").html(data)});return;
-  
-
-  loadFile("https://tejaswigowda.github.io/moco2019-draft/res/pages/program.html",function(res){
-    if(res.length && res.length > 500){
-      localStorage.setItem("res", res);
-      $("#program").html(res);
+  loadFile("res/config.json",function(data){
+    var readData = JSON.parse(data);
+    var keys = Object.keys(readData);
+    for (var i = 0; i < keys.length; i++){
+      App[keys[i]] = readData[keys[i]];
     }
-    else{
-      if(localStorage.getItem("res")){
-        $("#program").html(res);
-      }
-      else{
-        loadFile("./res/pages/program.html", function(data){$("#program").html(data)});
-      }
+    if(App.haslogin){
+      loadFile("/auth/islogin", function(data){
+        if(data === "0"){
+         // if(hash.indexOf("getlogin")>=0){
+            loadGetLoginModal();
+            if(hash.indexOf("pwcodeE")>=0){
+              M.toast({html: '<b> Error. </b>Account not found', classes:'red'})
+              lostPwd();
+            }
+            if(hash.indexOf("pwcode")>=0){
+              M.toast({html: '<b> Check email. </b>Password reset code sent', classes:'blue'})
+            }
+            if(hash.indexOf("fail")>=0){
+              M.toast({html: '<b> Login Error. </b>Please retry', classes:'red'})
+            }
+            if(hash.indexOf("regf")>=0){
+              M.toast({html: '<b> Signup Error. </b>Please retry', classes:'red'})
+              doRegister();
+            }
+            window.location.hash="";
+            return;
+          //}
+           
+          //window.location.href='./login.html'
+          return;
+        }
+        userObj = data;
+        start();
+      });
     }
-
+    else {
+      start();
+    }  
   });
  }
-
-
 </script>
 </head>
-<body onload='main()' style='margin:0'>
-<div id='brand'></div>
-    <div style="position: fixed;height: 100vh;width: 100vw;text-align: center;background-color: rgba(255,255,255,0);z-index: 100000;" class="ac"><svg class="spinner" width="65px" height="65px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg" style="margin-top: 75vh;"> <circle class="path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle> </svg> <h5 class="acText"></h5></div>
+<body onload='main()'>
+    <div style="position: fixed;height: 100vh;width: 100vw;text-align: center;background-color: rgba(255,255,255,.8);z-index: 100000;" class="ac"><svg class="spinner" width="65px" height="65px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg" style="margin-top: 45vh;"> <circle class="path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle> </svg> <h5 class="acText"></h5></div>
   <!-- app content -->
+  <div class='app-container'>
     <div id='canvasWrapper'>
-      <div id="maps" class="canvas">
-        <div style='height:120px;background:#5c6670;margin-bottom:-1px'></div>
-        <iframe id='mapFrame' allow="geolocation *;" src='https://www.google.com/maps/d/embed?mid=1SRTEXVScNFFqHSu5KNON8Lq3mBshgp-n' style='border:none;height:calc(100vh - 120px);width:100%;'></iframe>
-      </div>
-      <div id="speakers" class="canvas" style="">
-      </div>
-      <div id="program" class="canvas" style="">
-      </div>
-      <div id="contact" class="canvas" style="">
-      </div>
-      </div>
     </div>
+  </div>
 
   <!-- app menu -->
-<nav style='display:none' class="menu">
-  <input onchange='menuToggled()' type="checkbox" href="#" class="menu-open" name="menu-open" id="menu-open"/>
-  <label class="menu-open-button" for="menu-open">
-    <h1> </h1>
-    <span class="hamburger hamburger-1"></span>
-    <span class="hamburger hamburger-2"></span>
-    <span class="hamburger hamburger-3"></span>
-  
-  </label>
-  
-  <a href="javascript:menuSelected('maps')" class="menu-item" id='mapsB'></a>
-  <a href="javascript:menuSelected('contact')" class="menu-item" id='contactB'></a>
-  <a href="javascript:menuSelected('program')" class="menu-item" id='programB'></a>
-  <a href="javascript:menuSelected('speakers')" class="menu-item" id='speakerB'></a>
-  
-</nav>
-
-<div style='display:none' id='theHeader'>
-  <button class='menuOption maps' onclick='menuSelected("maps")'>Map</button>
-  <button class='menuOption speakers' onclick='menuSelected("speakers")'>Speakers</button>
-  <button class='menuOption program' onclick='menuSelected("program")'>Program</button>
-  <button class='menuOption contact' onclick='menuSelected("contact")'>Contact</button>
-  <div class='headerText' id='headerTextL'></div>
-  <div class='headerText' id='headerTextR'></div>
-  <button id='theLogo' onclick='goHome()' ></button>
-</div>
-
-
-    <a class="btn-floating btn-large waves-effect waves-light left-button" href="javascript:App.goBack()" style='visibility:hidden' id="backButton"><i class="material-icons">arrow_back</i></a>
-
+  <div class='onlyBigScreen'>
+    <ul id="nav-mobile" class="menuMarkup sidenav sidenav-fixed" style="transform:translateX(0px);">
+      <li><div class="iconBox">
+      <div class="background">
+        <div class="icon">
+        </div>
+      </div>
+    </div></li>
+      </ul>
   </div>
+
+  <div class='onlySmallScreen'>
+    <ul id="slide-out" class="sidenav menuMarkup">
+      <li><div class="iconBox">
+        <div class="background">
+          <div class="icon">
+          </div>
+        </div>
+      </div></li>
+    </ul>
+    <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+  </div>
+    <a class="btn-floating btn-large waves-effect waves-light" href="javascript:App.addNew()" id="addButton"><i class="material-icons">add</i></a>
+    <a class="btn-floating btn-large waves-effect waves-light left-button" href="javascript:App.goBack()" id="backButton"><i class="material-icons">arrow_back</i></a>
+
 </body>
+  <link rel="stylesheet/less" href="res/css/custom.less">
+  <script src="res/js/custom.js"></script>
+
+  <link rel="stylesheet" href="res/vendor/materialize/materialize.min.css">
+  <link href="res/vendor/materialize/icon.css" rel="stylesheet">
   <link href="res/vendor/animate.min.css" rel="stylesheet">
-  <link href="res/css/circularMenu.css" rel="stylesheet">
   <script src="res/vendor/md5.min.js"></script>
-  <script src="res/vendor/noframework.waypoints.min.js"></script>
   <script src="res/vendor/jquery.min.js"></script>
   <script src="res/vendor/materialize/materialize.min.js"></script>
   <script src='res/js/anappfor.me.js'></script>
@@ -119,5 +112,6 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
   -->
+
 
 </html>

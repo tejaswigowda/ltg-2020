@@ -1,0 +1,50 @@
+<! --
+account 
+-->
+<div class='wrapper' id='accountWrapper'>
+  <h1> Account </h1>
+  <div class='' id='userInfoList'>
+    <div class="row">
+      <p class='bold textcenter' id='loginInfo'> </p>
+    </div>
+          <div class='circle thumbnail' id='userThumb'>
+            <input data-height='100' data-width='100' name='test' data-targetname='test' type='file' onchange='doImageUpload(event, App.account.thumbChanged)'>
+          </div>
+    <div class="row">
+      <div class="input-field col s6">
+        <input id="first_name" type="text" class="validate" data-key='fname' onchange="App.account.updateAccount(event)">
+        <label for="first_name" class="">First Name</label>
+      </div>
+      <div class="input-field col s6">
+        <input id="last_name" type="text" data-key='lname' onchange="App.account.updateAccount(event)">
+        <label for="last_name" class="">Last Name</label>
+      </div>
+    </div>
+  <div style='text-align:center;' class="row">
+    <a class="waves-effect waves-light btn blue" href='javascript:App.account.changePwd()'><i class="material-icons left">cached</i>Change Password</a>
+    <a class="waves-effect waves-light btn red" href='javascript:doLogout()'><i class="material-icons left">power_settings_new</i>Logout</a>
+  </div>
+ </div>
+</div>
+
+
+<div class='wrapper' id='changePwdWrapper'>
+  <h1 id='newPHeading'> Change Password </h1>    
+    <div class="input-field col s12">
+          <i class="material-icons prefix">adjust</i>
+          <input type='password' class='validate' id="currPwd" oninput='App.account.pwEntered()' data-key='pwd' class="materialize-input">
+          <label for="currPwd">Current Password</label>
+   </div>
+    <div class="input-field col s12">
+          <i class="material-icons prefix">add</i>
+          <input id="newPwd" type='password' class='validate'  oninput='App.account.pwEntered()' data-key='npwd' class="materialize-input">
+          <label for="newPwd">New Password</label>
+   </div>
+    <div class="input-field col s12">
+          <i class="material-icons prefix">assignment_turned_in</i>
+          <input id="newPwdR" type='password' class='validate' oninput='App.account.pwEntered()' data-key='npwd' class="materialize-input">
+          <label for="newPwdR">Repeat Password</label>
+          <span class="helper-text" id='pwMatch'></span>
+   </div>
+    <a class="waves-effect waves-light btn red" href='javascript:doCP()' id='cpButton'><i class="material-icons left">cached</i>Change Password</a>
+</div>

@@ -1,19 +1,8 @@
 @import "globals.less";
 
-
-.mouseSupport a:hover,
-.touchSupport a:active{
-  background-color: @accentColor;
-}
-
-a, a:visited{
-  font-weight: bold;
-  color: @brandColor;
-  text-shadow: @accentColor 0px 0px 1px;
-}
-
-.accentFont{
-  font-family: "Roboto", serif;
+body{
+  background: #232323;
+  color: white;
 }
 
 .onlySmallScreen, .onlyBigScreen{
@@ -51,15 +40,11 @@ a, a:visited{
     left:305px;
   }
   .onlyBigScreen{
-    display: none;
+    display: block;
   }
   .canvas{
-    .content{
-      max-width: 1000px;
-      margin:auto;
-    }
-    width: 100%;
-    margin:auto;
+    width: ~"calc(100vw - 300px)";
+    margin-left: 300px;
     min-height: 100vh;
     position: absolute;
   }
@@ -67,7 +52,6 @@ a, a:visited{
      visibility: hidden;
   }
 }
-
 
 .sidenav-trigger{
   i{
@@ -84,6 +68,8 @@ a, a:visited{
      background-color: @brandColor;
      li > a{
        color: @menutextColor;
+       text-align: center;
+       font-size: 20px;
      }
 }
 
@@ -97,6 +83,7 @@ a, a:visited{
     }
    .icon{
      background-repeat:no-repeat;
+     background-position: 50%;
      height:90px;
      background-size:contain;
      background-image:url(../images/icon.png);
@@ -339,6 +326,15 @@ a, a:visited{
   }
 }
 
+.menuMarkup li:nth-of-type(2)
+{
+    opacity: 0;
+    height:140px;
+    margin-top: -150px;
+    a{
+      height:140px;
+    }
+}
 .menuMarkup .bold .material-icons
 {
    color: inherit;
@@ -347,21 +343,16 @@ a, a:visited{
 
 .menuMarkup .bold.active
 {
-  background:@accentColor;
+  background:@menutextColor;
+  a{
+    color: @brandColor;
+  }
 }
 
 .canvas{
- overflow-x: hidden;
- transform-style: preserve-3d;
- perspective: 500px;
- min-height: 100vh;
- height: auto;
- width: 100vw;
- background: white;
- background-position: 0px 0px;
- background-size:contain;
- background-repeat:no-repeat;
- background-attachment:fixed;
+  overflow-x: hidden;
+      transform-style: preserve-3d;
+    perspective: 500px;
  .wrapper{
    transition:linear .5s;
   width: 94%;
@@ -449,6 +440,10 @@ a, a:visited{
 }
 
 
+.drag-target{
+  min-width: 25px;
+}
+
 .autocomplete-suggestions {animation: .5s fadeInUp; box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.2); background: #FFF; overflow: auto; }
 .autocomplete-no-suggestion,
 .autocomplete-suggestion { border-bottom: 1px solid fade(@brandColor, 50%);padding:12px; font-size: 20px; white-space: nowrap; overflow: hidden; transition: .2s }
@@ -462,6 +457,15 @@ a, a:visited{
 .boldText{
   font-weight: bold;
 }
+#backButton
+{
+    position: fixed;
+    bottom: 5px;
+    i{
+      background:@accentColor;
+    }
+}
+
 #addButton
 {
     position: fixed;
@@ -489,48 +493,4 @@ a, a:visited{
   color: @menutextColor;
   margin-top: -5px;
   transition: .2s;
-}
-
-body{
-  color: #656565;
-  background: white;
-  transition: .2s;
-  background-image:url(../images/bgnew.png);
-  background-color:#e4ae38; 
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-attachment:fixed;
-  background-position: 10px;
-  margin: 0px;
-}
-
-*{
-    -webkit-tap-highlight-color:rgba(0,0,0,0);
-    outline:none;
-}
-
-html{
-  height: 100vh;
-  width: 100vw;
-  max-width: 100vw;
-}
-html{
-  position:absolute;
-}
-nav{
-  background: none;
-  box-shadow: none;
-}
-
-body.canvasVisible #canvasWrapper{
-  transform: translate(0, 0);
-}
-
-#canvasWrapper{
-  transition: .5s;
-  display: none;
-}
-
-.top100{
-  height: 110px;
 }
