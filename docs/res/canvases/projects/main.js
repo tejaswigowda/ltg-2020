@@ -3,6 +3,7 @@
       $('#projects select').formSelect();
   },
   active: function(){
+      $("#addButton").stop().fadeOut();return;
       swipe.right("crudProjWrapper");
       swipe.center("listProjWrapper");
     $("#backButton").fadeOut(0);

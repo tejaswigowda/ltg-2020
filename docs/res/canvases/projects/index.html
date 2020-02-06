@@ -1,51 +1,90 @@
-<! --
-projects
--->
-<div class='wrapper' id='listProjWrapper'>
+<h1 class='title'> Speakers </h1> 
+<div class='page'>
 
-
-  <h1> Projects </h1>
   <div class="row">
-    <div class="input-field col s12">
-        <i class="material-icons prefix">search</i>
-        <input id="projSearch" class="materialize-input">
+    <div class="col s12 m7">
+      <div class="card">
+        <div class="card-image">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/Julia_Margaret_Cameron_MET_DP114480_-_Restoration.jpg/524px-Julia_Margaret_Cameron_MET_DP114480_-_Restoration.jpg">
+          <span class="card-title">Jane Doe</span>
+        </div>
+        <div class="card-content">
+          <p>I am a very simple card. I am good at containing small bits of information.
+          I am convenient because I require little markup to use effectively.</p>
+          <p>I am a very simple card. I am good at containing small bits of information.
+          I am convenient because I require little markup to use effectively.</p>
+          <p>I am a very simple card. I am good at containing small bits of information.
+          I am convenient because I require little markup to use effectively.</p>
+          <p>I am a very simple card. I am good at containing small bits of information.
+          I am convenient because I require little markup to use effectively.</p>
+          <p>I am a very simple card. I am good at containing small bits of information.
+          I am convenient because I require little markup to use effectively.</p>
+          <p>I am a very simple card. I am good at containing small bits of information.
+          I am convenient because I require little markup to use effectively.</p>
+        </div>
+        <div class="card-action">
+          <a href="#">This is a link</a>
+        </div>
+      </div>
     </div>
-    <div id='projViewSelect' class="input-field col s6">
-      <i class="material-icons prefix">format_list_bulleted</i>
-      <select onchange='App.projects.projViewChanged()'>
-       <option value="list">Card View</option>
-       <option value="list flatlist">List View</option>
-       <option value="list thumblist">Thumbnail View</option>
-      </select>
-    </div>
-    <div id='projSortSelect' class="input-field col s6">
-      <i class="material-icons prefix">sort_by_alpha</i>
-      <select onchange='App.projects.projSortChanged()'>
-       <option value="name">Sort by Title</option>
-       <option value="created">Sort by Create Date</option>
-       <option value="modified">Sort by Modified</option>
-      </select>
-    </div>
-
   </div>
-  <ul class='list' id='projList'>
-  </ul>
-</div>
 
-<div class='wrapper' id='crudProjWrapper'>
-  <h1 id='newPHeading'> New Project </h1>    
-          <div class='circle thumbnail' id='projThumb'>
-            <input name='' data-targetname='' type='file' onchange='doFileUpload(event, App.projects.thumbChanged);doImageUpload(event, App.projects.thumbChanged100)' data-height='300' data-width='300'>
-          </div>
-    <div class="input-field col s12">
-          <i class="material-icons prefix">mode_edit</i>
-          <textarea id="projTitle" data-key='name' onchange="App.projects.updateProject(event)" class="materialize-textarea"></textarea>
-          <label for="projTitle">Project Title</label>
-   </div>
-    <div class="input-field col s12">
-          <i class="material-icons prefix">format_align_justify</i>
-          <textarea id="projDesc" data-key='desc' onchange="App.projects.updateProject(event)" class="materialize-textarea"></textarea>
-          <label for="projDesc">Description</label>
-   </div>
-    <a class="waves-effect waves-light btn red" href='javascript:App.projects.delete()' id='deleteProjButton'><i class="material-icons left">delete</i>Delete</a>
+
+  <div class="row">
+    <div class="col s12 m7">
+      <div class="card">
+        <div class="card-image">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/Julia_Margaret_Cameron_MET_DP114480_-_Restoration.jpg/524px-Julia_Margaret_Cameron_MET_DP114480_-_Restoration.jpg">
+          <span class="card-title">Jane Doe</span>
+        </div>
+        <div class="card-content">
+          <p>I am a very simple card. I am good at containing small bits of information.
+          I am convenient because I require little markup to use effectively.</p>
+          <p>I am a very simple card. I am good at containing small bits of information.
+          I am convenient because I require little markup to use effectively.</p>
+          <p>I am a very simple card. I am good at containing small bits of information.
+          I am convenient because I require little markup to use effectively.</p>
+          <p>I am a very simple card. I am good at containing small bits of information.
+          I am convenient because I require little markup to use effectively.</p>
+          <p>I am a very simple card. I am good at containing small bits of information.
+          I am convenient because I require little markup to use effectively.</p>
+          <p>I am a very simple card. I am good at containing small bits of information.
+          I am convenient because I require little markup to use effectively.</p>
+        </div>
+        <div class="card-action">
+          <a href="#">This is a link</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="row">
+    <div class="col s12 m7">
+      <div class="card">
+        <div class="card-image">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/Julia_Margaret_Cameron_MET_DP114480_-_Restoration.jpg/524px-Julia_Margaret_Cameron_MET_DP114480_-_Restoration.jpg">
+          <span class="card-title">Jane Doe</span>
+        </div>
+        <div class="card-content">
+          <p>I am a very simple card. I am good at containing small bits of information.
+          I am convenient because I require little markup to use effectively.</p>
+          <p>I am a very simple card. I am good at containing small bits of information.
+          I am convenient because I require little markup to use effectively.</p>
+          <p>I am a very simple card. I am good at containing small bits of information.
+          I am convenient because I require little markup to use effectively.</p>
+          <p>I am a very simple card. I am good at containing small bits of information.
+          I am convenient because I require little markup to use effectively.</p>
+          <p>I am a very simple card. I am good at containing small bits of information.
+          I am convenient because I require little markup to use effectively.</p>
+          <p>I am a very simple card. I am good at containing small bits of information.
+          I am convenient because I require little markup to use effectively.</p>
+        </div>
+        <div class="card-action">
+          <a href="#">This is a link</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
 </div>
