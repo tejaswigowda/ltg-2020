@@ -23,6 +23,7 @@ The app is built using web technologies. If you can make a website you can make 
 - <https://gist.github.com/tejaswigowda/8449ed1365a255bca26eb6c519755db2>
 
 <hr>
+
 - <https://www.w3schools.com/html/>
 
 - <https://www.w3schools.com/css/>
