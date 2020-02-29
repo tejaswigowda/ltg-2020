@@ -8,7 +8,6 @@
 	"location": "",
 	"canvases": [
                     ["home", "Home", "Home"],
-                    ["projects", "Speakers", "Speakers"],
                     ["tags", "Program", "Program"],
                     ["maps", "Maps", "Maps"],
                     ["account", "Contact", "Contact"]
