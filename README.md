@@ -18,7 +18,10 @@
 The app is built using web technologies. If you can make a website you can make an app!
 
 ## References
-<https://capacitor.ionicframework.com/>
-<https://www.w3schools.com/html/>
-<https://www.w3schools.com/css/>
-<https://www.w3schools.com/js/>
+- <https://capacitor.ionicframework.com/>
+
+- <https://www.w3schools.com/html/>
+
+- <https://www.w3schools.com/css/>
+
+- <https://www.w3schools.com/js/>
