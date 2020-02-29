@@ -1,35 +1,20 @@
 {
-  "name": "com.fns.moco2019",
-  "displayName": "MOCO2019",
+  "name": "capacitor-app",
   "version": "1.0.0",
-  "description": "A sample Apache Cordova application that responds to the deviceready event.",
+  "description": "An Amazing Capacitor App",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
-    "ecosystem:cordova"
+    "capacitor",
+    "mobile"
   ],
-  "author": "Apache Cordova Team",
-  "license": "Apache-2.0",
+  "author": "",
+  "license": "ISC",
   "dependencies": {
-    "cordova-android": "^8.1.0",
-    "cordova-ios": "^5.0.1",
-    "cordova-plugin-geolocation": "^4.0.2",
-    "cordova-plugin-statusbar": "^2.4.3"
-  },
-  "devDependencies": {
-    "cordova-plugin-whitelist": "^1.3.4"
-  },
-  "cordova": {
-    "plugins": {
-      "cordova-plugin-whitelist": {},
-      "cordova-plugin-geolocation": {},
-      "cordova-plugin-statusbar": {}
-    },
-    "platforms": [
-      "ios",
-      "android"
-    ]
+    "@capacitor/cli": "^1.5.0",
+    "@capacitor/core": "^1.5.0",
+    "@capacitor/ios": "^1.5.0"
   }
 }

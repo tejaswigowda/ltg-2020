@@ -1,0 +1,16 @@
+{
+	"version": "1.0",
+	"name": "anappfor.me",
+	"embedded": false,
+	"embedType": "",
+	"resURL": "https://s3-us-west-2.amazonaws.com/anappfor.me/",
+	"reshttpURL": "http://s3-us-west-2.amazonaws.com/anappfor.me/",
+	"location": "",
+	"canvases": [
+                    ["home", "Home", "Home"],
+                    ["tags", "Program", "Program"],
+                    ["maps", "Maps", "Maps"],
+                    ["account", "Contact", "Contact"]
+                  ],
+	"haslogin": false
+}

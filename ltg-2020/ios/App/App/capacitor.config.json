@@ -1,0 +1,7 @@
+{
+  "appId": "app.ltg.2020",
+  "appName": "ltg-2020",
+  "bundledWebRuntime": true,
+  "npmClient": "npm",
+  "webDir": "www"
+}
